@@ -123,6 +123,10 @@
  */
 - (void)freshCarousel;
 
+/// 刷新 Carousel
+/// @param toFirst 是否滚动到第一个
+- (void)refreshCarouselToFirst:(BOOL)toFirst;
+
 /**
  暂停轮播图后,可以调用改方法继续播放
  */
@@ -154,6 +158,7 @@
 /// @param index 指定下标
 /// @param animation 是否开启滚动动画
 - (void)scrollTo:(NSInteger)index animation:(BOOL)animation;
+
 @end
 
 
