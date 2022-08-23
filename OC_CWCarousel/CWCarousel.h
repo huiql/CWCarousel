@@ -127,6 +127,11 @@
 /// @param toFirst 是否滚动到第一个
 - (void)refreshCarouselToFirst:(BOOL)toFirst;
 
+
+/// 滚动至索引
+/// @param index 索引
+- (void)refreshCarouselToIndex:(NSInteger)index;
+
 /**
  暂停轮播图后,可以调用改方法继续播放
  */

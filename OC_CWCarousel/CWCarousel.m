@@ -244,6 +244,34 @@
     }
 }
 
+- (void)refreshCarouselToIndex:(NSInteger)index {
+    
+    if ([self numbers] < 0) {
+        return;
+    }
+    
+    [self.carouselView reloadData];
+    [self layoutIfNeeded];
+    
+    if (self.endless)
+        [self.carouselView scrollToItemAtIndexPath:[self originIndexPath] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    else {
+        if (self.numbers > 0) {
+            if (self.flowLayout.style == CWCarouselStyle_Normal) {
+                [self.carouselView scrollToItemAtIndexPath:self.currentIndexPath = [NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            }
+            else {
+                [self.carouselView scrollToItemAtIndexPath:self.currentIndexPath = [NSIndexPath indexPathForRow:1 + index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            }
+        }
+    }
+    
+    self.carouselView.userInteractionEnabled = YES;
+    if (self.isAuto) {
+        [self play];
+    }
+}
+
 #pragma mark - < Scroll Delegate >
 /// 开始拖拽
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
