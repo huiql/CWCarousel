@@ -415,7 +415,9 @@
 
 // 滚动中
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+    if ([self.delegate respondsToSelector:@selector(CWCarouselDidScroll:didScrollAtIndex:indexPathRow:)]) {
+        [self.delegate CWCarouselDidScroll:self didScrollAtIndex:[self caculateIndex:self.currentIndexPath.row] indexPathRow:self.currentIndexPath.row];
+    }
 }
 
 #pragma mark - < Logic Helper >
@@ -655,8 +657,9 @@
     __weak __typeof(&*self) weakSelf = self;
     
     UICollectionViewCell* (^returnCell)(NSIndexPath *) = ^UICollectionViewCell* (NSIndexPath *idx) {
-        if (self.datasource && [self.datasource respondsToSelector:@selector(viewForCarousel:indexPath:index:)]) {
-            UICollectionViewCell *cell = [weakSelf.datasource viewForCarousel:weakSelf indexPath:indexPath index:[weakSelf caculateIndex:indexPath.row]];
+        __strong __typeof (self) strongSelf = weakSelf;
+        if (strongSelf.datasource && [strongSelf.datasource respondsToSelector:@selector(viewForCarousel:indexPath:index:)]) {
+            UICollectionViewCell *cell = [strongSelf.datasource viewForCarousel:strongSelf indexPath:indexPath index:[strongSelf caculateIndex:indexPath.row]];
             return cell;
         }
         return nil;
